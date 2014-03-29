@@ -12,5 +12,6 @@
         <file>robot.jpg</file>
         <file>emulator.ico</file>
         <file>video-qml-paint-rate.png</file>
+        <file>gamepad.png</file>
     </qresource>
 </RCC>

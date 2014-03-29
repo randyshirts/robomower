@@ -14,6 +14,7 @@ class MainWindow;
 class Console;
 class SettingsDialog;
 class RobotGui;
+class Joypick;
 
 class MainWindow : public QMainWindow
 {
@@ -43,6 +44,7 @@ private:
     SettingsDialog *settings;
     QSerialPort *serial;
     RobotGui *cRobot;
+    Joypick *joystickTest;
 };
 
 #endif // MAINWINDOW_H

@@ -3,6 +3,7 @@
 #include "console.h"
 #include "settingsdialog.h"
 #include "robotgui.h"
+#include "../Joypick/source/joypick.h"
 
 #include <QMessageBox>
 #include <QtSerialPort/QSerialPort>
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     serial = new QSerialPort(this);
     settings = new SettingsDialog;
     cRobot = new RobotGui;
+    joystickTest = new Joypick;
     console->setEnabled(false);
     setCentralWidget(cRobot);
 
@@ -25,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionQuit->setEnabled(true);
     ui->actionConfigure->setEnabled(true);
     ui->actionTerminal->setEnabled(true);
+    ui->actionJoystickTest->setEnabled(true);
     initActionsConnections();
 
     connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this,
@@ -167,4 +170,5 @@ void MainWindow::initActionsConnections()
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->actionTerminal, SIGNAL(triggered()), console, SLOT(show()));
+    connect(ui->actionJoystickTest, SIGNAL(triggered()), joystickTest, SLOT(show()));
 }

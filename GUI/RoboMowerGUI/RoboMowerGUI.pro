@@ -17,14 +17,18 @@ SOURCES += main.cpp\
     console.cpp \
     settingsdialog.cpp \
     robotgui.cpp \
-    qledindicator.cpp
+    qledindicator.cpp \
+    ../Joypick/source/qjoystick.cpp \
+    ../Joypick/source/joypick.cpp
 
 HEADERS  += mainwindow.h \
     console.h \
     settingsdialog.h \
     robotgui.h \
     heartbeattimer.h \
-    qledindicator.h
+    qledindicator.h \
+    ../Joypick/source/qjoystick.h \
+    ../Joypick/source/joypick.h
 
 FORMS    += mainwindow.ui \
     settingsdialog.ui \
@@ -38,8 +42,10 @@ RESOURCES += \
     terminal.qrc \
     terminal.qrc
 
-INCLUDEPATH += $$PWD/../../../../../../opt/Qt/5.1.1/gcc/include
+INCLUDEPATH += $$PWD/../../../../../../opt/Qt/5.1.1/gcc/include \
+            /etc/include/SDL
 DEPENDPATH += $$PWD/../../../../../../opt/Qt/5.1.1/gcc/include
-LIBS += -L/opt/Qt/plugins/designer
+LIBS += -L/opt/Qt/plugins/designer \
+        -lSDL
 
 

@@ -73,6 +73,7 @@ mainLayout->addStretch(1);
 
 this->setLayout(mainLayout);
 
+setWindowTitle("Joystick Test");
 
 }
 

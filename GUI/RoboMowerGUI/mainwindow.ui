@@ -69,6 +69,7 @@
    <addaction name="actionConfigure"/>
    <addaction name="actionClear"/>
    <addaction name="actionTerminal"/>
+   <addaction name="actionJoystickTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
@@ -175,6 +176,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionJoystickTest">
+   <property name="icon">
+    <iconset resource="terminal.qrc">
+     <normaloff>:/gamepad.png</normaloff>:/gamepad.png</iconset>
+   </property>
+   <property name="text">
+    <string>joystickTest</string>
+   </property>
+   <property name="toolTip">
+    <string>Test the joystick buttons</string>
    </property>
   </action>
  </widget>
