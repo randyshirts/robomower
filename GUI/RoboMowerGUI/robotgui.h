@@ -5,8 +5,12 @@
 #include <QAbstractSlider>
 #include "heartbeattimer.h"
 #include "qledindicator.h"
+#include "gamepad.h"
 
 class HeartbeatTimer;
+class cGamepad;
+
+#define GP_DEADBAND_LIMIT 2000
 
 namespace Ui {
 class RobotGui;
@@ -46,6 +50,7 @@ public slots:
     void driveCmdLeft();
     void driveStopCmd();
     void sendDriveCmd();
+    void readGamepad();
 
 
 public:
@@ -68,8 +73,10 @@ private:
     unsigned int m_M2cur;
     Ui::RobotGui *ui;
     QTimer *cTimer100ms;
+    Gamepad *cGamepad;
     void setLcdPallette();
     void bladeToggleSettings();
+
 
 };
 

@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     robotgui.cpp \
     qledindicator.cpp \
     ../Joypick/source/qjoystick.cpp \
-    ../Joypick/source/joypick.cpp
+    ../Joypick/source/joypick.cpp \
+    gamepad.cpp
 
 HEADERS  += mainwindow.h \
     console.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     heartbeattimer.h \
     qledindicator.h \
     ../Joypick/source/qjoystick.h \
-    ../Joypick/source/joypick.h
+    ../Joypick/source/joypick.h \
+    gamepad.h
 
 FORMS    += mainwindow.ui \
     settingsdialog.ui \

@@ -1,8 +1,10 @@
 #include "robotgui.h"
 #include "ui_robotgui.h"
 #include "heartbeattimer.h"
+#include "gamepad.h"
 #include <QKeyEvent>
 #include <QAbstractSlider>
+#include <QDebug>
 
 RobotGui::RobotGui(QWidget *parent) :
     QWidget(parent),
@@ -17,6 +19,8 @@ RobotGui::RobotGui(QWidget *parent) :
     cTimer100ms = new QTimer(this);
     cTimer100ms->setInterval(100);
     cTimer100ms->start();
+
+    cGamepad = new Gamepad(this);
 
     m_cmdMsg.header1 = 0xDE;
     m_cmdMsg.header2 = 0xAD;
@@ -45,6 +49,7 @@ RobotGui::RobotGui(QWidget *parent) :
     connect(ui->leftButton, SIGNAL(released()), this, SLOT(driveStopCmd()));
     connect(cHeartBeat, SIGNAL(HBon()), this, SLOT(lightHBled()));
     connect(cHeartBeat, SIGNAL(HBoff()), this, SLOT(darkHBled()));
+    connect(cTimer100ms, SIGNAL(timeout()), this, SLOT(readGamepad()));
     connect(cTimer100ms, SIGNAL(timeout()), this, SLOT(bladeCmd()));
     connect(cTimer100ms, SIGNAL(timeout()), this, SLOT(sendDriveCmd()));
     //connect(this, SIGNAL(Up_Button_Pressed()), this, SLOT(sendCmdUp()));
@@ -58,6 +63,47 @@ RobotGui::~RobotGui()
 {
     cHeartBeat->stop();
     delete ui;
+}
+
+
+//joystick[0] - analog left/right on left joystick, right-positive, left-negative
+//joystick[1] - analog up/down on left joystick, down-positive, up-negative
+//joystick[2] - analog left/right on right joystick, right-positive, left-negative
+//joystick[3] - analog up/down on right joystick, down-positive, up-negative
+void RobotGui::readGamepad()
+{
+    if(cGamepad->joysavail > 0)
+    {
+        int tempDataLR = cGamepad->joystick[0]->axis[0];
+        if((tempDataLR > GP_DEADBAND_LIMIT) ||
+              (tempDataLR < (-1*GP_DEADBAND_LIMIT)))
+        {
+            //qDebug() << tempData;
+
+            int spd = tempDataLR*400/32767;  //Max speed is -400 for Motor Controller commands
+            //qDebug() << spd;
+            m_cmdMsg.ltMotorSpd = spd;
+            m_cmdMsg.rtMotorSpd = -1*spd;
+        }
+        int tempDataUp = cGamepad->joystick[0]->axis[1];
+        if((tempDataUp > GP_DEADBAND_LIMIT) ||
+              (tempDataUp < (-1*GP_DEADBAND_LIMIT)))
+        {
+            int spd = tempDataUp*400/32767;  //Max speed is -400 for Motor Controller commands
+            //qDebug() << spd;
+            m_cmdMsg.ltMotorSpd = -1*spd;
+            m_cmdMsg.rtMotorSpd = -1*spd;
+        }
+        if((tempDataLR < GP_DEADBAND_LIMIT) &&
+              (tempDataLR > (-1*GP_DEADBAND_LIMIT)) &&
+              (tempDataUp < GP_DEADBAND_LIMIT) &&
+              (tempDataUp > (-1*GP_DEADBAND_LIMIT)))
+        {
+            //qDebug() << spd;
+            m_cmdMsg.ltMotorSpd = 0;
+            m_cmdMsg.rtMotorSpd = 0;
+        }
+    }
 }
 
 void RobotGui::setSpeed(int newVal)
