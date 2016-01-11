@@ -1,9 +1,17 @@
-#include <TimedAction.h>
 
+#include <TimedAction.h>
+#include <Arduino.h>
 #include "DualMC33926MotorShield.h"
 #include "Robomower.h"
 
- 
+void parseRxCommand(Cmd_t* rx_cmd, Hbt_t* rx_hbt, BladeCmd_t* rx_blade_cmd);
+void serialEvent();
+void stopIfFault();
+void setBladeMotors();
+void checkHB();
+void sendHB();
+void checkCurrent();
+
 TimedAction HBcheck = TimedAction(500,checkHB);
 TimedAction HBsend = TimedAction(500,sendHB);
 TimedAction CurrentCheck = TimedAction(250,checkCurrent);
@@ -59,7 +67,7 @@ void loop()
  
 }
 
-int parseRxCommand(Cmd_t* cmdPtr, Hbt_t* hbtPtr, BladeCmd_t* bladePtr)
+void parseRxCommand(Cmd_t* cmdPtr, Hbt_t* hbtPtr, BladeCmd_t* bladePtr)
 { 
   int rspd,lspd = 0;
   unsigned char nextChar;
