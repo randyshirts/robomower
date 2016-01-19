@@ -47,23 +47,23 @@ void loop()
  
   parseRxCommand(&rxCmd, &rxHbt, &rxBladeCmd);
   
-  HBcheck.check();   //Triggers every 500 ms
+  //HBcheck.check();   //Triggers every 500 ms
   
   HBsend.check();  //Triggers every 500 ms
   
   CurrentCheck.check();  //Triggers every 250 ms
   
-  setBladeMotors();
+  //setBladeMotors();
   
-  md.setM1Speed(rxCmd.lspd);
+  //md.setM1Speed(rxCmd.lspd);
   
-  stopIfFault();
+  //stopIfFault();
     
-  md.setM2Speed(rxCmd.rspd);
-  stopIfFault();
+  //md.setM2Speed(rxCmd.rspd);
+  //stopIfFault();
  
 
-  delay(10);
+  delay(100);
  
 }
 
@@ -173,20 +173,20 @@ void serialEvent() {
       bufPos = 0;
     }
 
-//DEBUG
-/*
+
+  }
+  
+    //DEBUG
     Serial.println(" ");
     for(int i=bufPos;i<bufSize;i=i+sizeof(char))
     {
       
-      Serial.print(*(rxBuffer+i), HEX);
+      Serial.print((char)(*(rxBuffer+i))); 
       //Serial.println(sizeof(char));
     }
-    Serial.println("End Buffer");
-*/
-//END DEBUG
-  }
   
+    //END DEBUG  
+    Serial.println("End Buffer");
 }
 
 void checkHB()
