@@ -23,8 +23,12 @@ extern "C" void __cxa_pure_virtual() {;}
 //
 //
 void parseRxCommand(Cmd_t* cmdPtr, Hbt_t* hbtPtr, BladeCmd_t* bladePtr);
+void serialEvent();
+void checkHB();
+void sendHB();
+void checkCurrent();
+void stopIfFault();
 
-#include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" 
-#include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\arduino.h"
+#include "C:\Program Files\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" 
+#include "C:\Program Files\Arduino\hardware\arduino\avr\cores\arduino\arduino.h"
 #include <..\Robomower\Robomower.ino>
-#include <..\Robomower\Robomower.h>
