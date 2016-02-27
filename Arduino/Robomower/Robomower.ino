@@ -12,9 +12,9 @@ void checkHB();
 void sendHB();
 void checkCurrent();
 
-TimedAction HBcheck = TimedAction(500,checkHB);
-TimedAction HBsend = TimedAction(500,sendHB);
-TimedAction CurrentCheck = TimedAction(250,checkCurrent);
+//TimedAction HBcheck = TimedAction(500,checkHB);
+//TimedAction HBsend = TimedAction(500,sendHB);
+//TimedAction CurrentCheck = TimedAction(250,checkCurrent);
 
 void setup()
 {
@@ -24,15 +24,15 @@ void setup()
   
   md.init();  //Initialize motors
   
-  pinMode(BLADEMOWER1PIN, OUTPUT); 
-  pinMode(BLADEMOWER2PIN, OUTPUT);
+  //pinMode(BLADEMOWER1PIN, OUTPUT); 
+  //pinMode(BLADEMOWER2PIN, OUTPUT);
   
-  digitalWrite(BLADEMOWER1PIN,LOW);
-  digitalWrite(BLADEMOWER2PIN,LOW);
+  //digitalWrite(BLADEMOWER1PIN,LOW);
+  //digitalWrite(BLADEMOWER2PIN,LOW);
   
   rxBladeCmd.cmd = 0;
-  rxCmd.lspd = 0;
-  rxCmd.rspd = 0;
+  rxCmd.lspd = 200;
+  rxCmd.rspd = 200;
   //spd = 0;
   bufSize = 0;
   bufSize = 0;
@@ -45,21 +45,21 @@ void loop()
 {
   boolean HB = false;
  
-  parseRxCommand(&rxCmd, &rxHbt, &rxBladeCmd);
+  //parseRxCommand(&rxCmd, &rxHbt, &rxBladeCmd);
   
   //HBcheck.check();   //Triggers every 500 ms
   
-  HBsend.check();  //Triggers every 500 ms
+  //HBsend.check();  //Triggers every 500 ms
   
-  CurrentCheck.check();  //Triggers every 250 ms
+  //CurrentCheck.check();  //Triggers every 250 ms
   
   //setBladeMotors();
   
-  //md.setM1Speed(rxCmd.lspd);
+  md.setM1Speed(rxCmd.lspd);
   
   //stopIfFault();
     
-  //md.setM2Speed(rxCmd.rspd);
+  md.setM2Speed(rxCmd.rspd);
   //stopIfFault();
  
 
